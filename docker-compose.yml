@@ -1,0 +1,28 @@
+  version: '3.8'
+
+  services:
+  
+    app:
+      build:
+        context: .
+        dockerfile: ./Dockerfile
+      container_name: test-service
+      volumes:
+        - app_data:/usr/src/app
+        - $HOME/.aws/credentials:/root/.aws/credentials:ro
+        - $HOME/.aws:/home/aoc/.aws
+      ports:
+        - 3000:3000
+      command: "bash ssm.sh"
+      networks:
+        - private
+        - public
+      stdin_open: true
+      tty: true
+
+  volumes:
+    app_data:
+
+  networks:
+    private:
+    public: 
